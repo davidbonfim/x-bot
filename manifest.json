@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "X-Bot Auto Liker",
+  "version": "1.0",
+  "description": "Automates likes, comments, and follows on X.com (Twitter).",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://x.com/*",
+    "https://twitter.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://x.com/*",
+        "https://twitter.com/*"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
