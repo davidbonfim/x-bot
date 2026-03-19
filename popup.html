@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="pt">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,21 +9,37 @@
 <body>
   <div class="container">
     <h2>X-Bot 🤖</h2>
-    
-    <div class="form-group">
-      <label>Hashtag (sin #):</label>
-      <input type="text" id="hashtag" placeholder="ej. javascript">
-    </div>
-    
-    <div class="form-group">
-      <label>Intervalo (segundos):</label>
-      <input type="number" id="interval" min="2" value="5">
+
+    <!-- Hashtag e Intervalo -->
+    <div class="form-group-inline">
+      <div class="form-group">
+        <label for="hashtag">Hashtag (sem #):</label>
+        <input type="text" id="hashtag" placeholder="ex. javascript" required>
+      </div>
+      <div class="form-group">
+        <label for="interval">Intervalo (segundos):</label>
+        <input type="number" id="interval" min="5" max="120" value="10" title="Mínimo 5s para modo básico">
+      </div>
     </div>
 
+    <!-- Nível de Proteção -->
+    <div class="form-group">
+      <label for="protectionLevel">
+        Nível de Proteção
+        <span id="protectionBadge" class="protection-badge basic">Básico</span>
+      </label>
+      <select id="protectionLevel">
+        <option value="basic">Básico - Delays normais (5-15s)</option>
+        <option value="intermediate">Intermediário - Delays médios (10-30s)</option>
+        <option value="advanced" selected>Avançado - Delays longos (15-45s)</option>
+      </select>
+    </div>
+
+    <!-- Opções -->
     <div class="options-grid">
        <div class="checkbox-group">
           <input type="checkbox" id="enableComments">
-          <label for="enableComments">Activar Comentarios IA</label>
+          <label for="enableComments">Ativar Comentários IA</label>
        </div>
        <div class="checkbox-group">
           <input type="checkbox" id="enableFollow">
@@ -31,16 +47,68 @@
        </div>
     </div>
 
+    <!-- API Key -->
     <div class="form-group" id="apiKeyContainer">
-      <label>OpenAI API Key:</label>
-      <input type="password" id="apiKey" placeholder="sk-..." autocomplete="off">
+      <label for="apiKey">OpenAI API Key:</label>
+      <input type="password" id="apiKey" placeholder="sk-..." autocomplete="off" title="Deve começar com 'sk-'">
     </div>
 
-    <div class="status" id="statusMessage">Listo para iniciar</div>
+    <hr class="separator">
 
+    <!-- Prompt Customizável -->
+    <div class="form-group prompt-section">
+      <label for="customPrompt">Prompt da IA (System Prompt):</label>
+      <textarea id="customPrompt" placeholder="Deixe vazio para usar o prompt padrão..." title="Instruções para a IA gerar comentários"></textarea>
+      <div class="prompt-actions">
+        <button type="button" id="btnResetPrompt" class="btn-small">Restaurar Padrão</button>
+        <button type="button" id="btnClearPrompt" class="btn-small">Limpar</button>
+      </div>
+    </div>
+
+    <!-- Limites Diários -->
+    <div class="form-group">
+      <label>Limites Diários (0 = sem limite):</label>
+      <div class="limits-grid">
+        <div class="form-group">
+          <input type="number" id="limitLikes" min="0" max="500" value="50" title="Máximo de likes por dia">
+        </div>
+        <div class="form-group">
+          <input type="number" id="limitComments" min="0" max="200" value="20" title="Máximo de comentários por dia">
+        </div>
+        <div class="form-group">
+          <input type="number" id="limitFollows" min="0" max="100" value="15" title="Máximo de follows por dia">
+        </div>
+      </div>
+    </div>
+
+    <hr class="separator">
+
+    <!-- Estatísticas da Sessão -->
+    <div class="stats-section">
+      <label>Estatísticas da Sessão <button type="button" id="btnResetStats" class="btn-small" style="float: right;">Resetar</button></label>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-value" id="statLikes">0</span>
+          <span class="stat-label">Likes</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value" id="statComments">0</span>
+          <span class="stat-label">Comentários</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value" id="statFollows">0</span>
+          <span class="stat-label">Follows</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Status -->
+    <div class="status" id="statusMessage">Pronto para iniciar</div>
+
+    <!-- Controles -->
     <div class="controls">
       <button id="btnStart" class="btn primary">Iniciar X-Bot</button>
-      <button id="btnStop" class="btn danger" disabled>Detener</button>
+      <button id="btnStop" class="btn danger" disabled>Parar</button>
     </div>
   </div>
   <script src="popup.js"></script>
