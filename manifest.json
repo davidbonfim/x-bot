@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "X-Bot Auto Liker",
-  "version": "1.0",
-  "description": "Automates likes, comments, and follows on X.com (Twitter).",
+  "version": "1.1",
+  "description": "Automatiza curtidas, comentários e seguidores no X.com (Twitter).",
   "permissions": [
     "activeTab",
     "scripting",
@@ -10,7 +10,8 @@
   ],
   "host_permissions": [
     "https://x.com/*",
-    "https://twitter.com/*"
+    "https://twitter.com/*",
+    "https://api.openai.com/*"
   ],
   "content_scripts": [
     {
